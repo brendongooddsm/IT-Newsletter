@@ -1,0 +1,66 @@
+# BSB Morning Brief configuration
+
+max_articles_per_feed: 10
+lookback_hours: 28
+claude_model: "claude-sonnet-4-6"
+max_tokens: 4096
+temperature: 0.3
+
+recipient_email: "brendon@bsbdesign.com"
+sender_email: "newsletter@bsbdesign.com"
+sender_name: "BSB Morning Brief"
+
+newsapi:
+  enabled: true
+  query: "(Intune OR Entra OR Microsoft 365 OR PowerShell OR cybersecurity OR Revit OR AutoCAD OR \"AI architecture\")"
+  language: "en"
+  page_size: 20
+
+newsletter_sections:
+  - title: "IT & Endpoint Management"
+    description: "Endpoint management, identity, M365, security, and admin tooling."
+  - title: "AI & Machine Learning"
+    description: "General AI/ML developments relevant to IT leaders."
+  - title: "AI in Architecture & AEC"
+    description: "AI tooling, automation, and trends specific to the AEC industry."
+  - title: "BSB Automation & Efficiency Ideas"
+    description: "Concrete project ideas BSB Design could implement."
+
+feeds:
+  it_endpoint_security:
+    - name: "Bleeping Computer"
+      url: "https://www.bleepingcomputer.com/feed/"
+    - name: "The Hacker News"
+      url: "https://feeds.feedburner.com/TheHackersNews"
+    - name: "Practical365"
+      url: "https://practical365.com/feed/"
+    - name: "Microsoft 365 Blog"
+      url: "https://www.microsoft.com/en-us/microsoft-365/blog/feed/"
+    - name: "MSEndpointMgr"
+      url: "https://msendpointmgr.com/feed/"
+    - name: "Call4Cloud"
+      url: "https://call4cloud.nl/feed/"
+    - name: "Adam the Automator"
+      url: "https://adamtheautomator.com/feed/"
+
+  ai_general:
+    - name: "MIT Technology Review"
+      url: "https://www.technologyreview.com/feed/"
+    - name: "The Verge - AI"
+      url: "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"
+    - name: "Ars Technica"
+      url: "https://feeds.arstechnica.com/arstechnica/technology-lab"
+    - name: "OpenAI Blog"
+      url: "https://openai.com/blog/rss.xml"
+    - name: "Anthropic"
+      url: "https://www.anthropic.com/rss.xml"
+
+  ai_aec:
+    - name: "ArchDaily"
+      url: "https://www.archdaily.com/feed"
+    - name: "AEC Magazine"
+      url: "https://aecmag.com/feed/"
+    - name: "Autodesk Revit Blog"
+      url: "https://blogs.autodesk.com/revit/feed/"
+    - name: "Architizer"
+      url: "https://architizer.com/blog/feed/"
