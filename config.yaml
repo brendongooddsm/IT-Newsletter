@@ -7,7 +7,6 @@ max_tokens: 4096
 temperature: 0.3
 
 recipient_email: "brendon@bsbdesign.com"
-sender_email: "newsletter@bsbdesign.com"
 sender_name: "BSB Morning Brief"
 
 newsapi:

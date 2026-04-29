@@ -27,31 +27,34 @@ Copy `.env.example` to `.env` and fill in:
 
 ```
 ANTHROPIC_API_KEY=sk-ant-...
-SMTP_EMAIL=newsletter@bsbdesign.com
-SMTP_PASSWORD=your-m365-app-password
+SMTP_EMAIL=yourname@gmail.com
+SMTP_PASSWORD=xxxx-xxxx-xxxx-xxxx
 RECIPIENT_EMAIL=brendon@bsbdesign.com
 NEWSAPI_KEY=optional
 ```
 
 ### 3. GitHub Actions secrets
 
-In the repo, go to **Settings -> Secrets and variables -> Actions** and add the same names:
+In the repo, go to **Settings -> Secrets and variables -> Actions** and add:
 
 - `ANTHROPIC_API_KEY` (required)
-- `SMTP_EMAIL` (required)
-- `SMTP_PASSWORD` (required)
-- `RECIPIENT_EMAIL` (required)
+- `SMTP_EMAIL` (required) — the Gmail address that sends the newsletter
+- `SMTP_PASSWORD` (required) — a Gmail App Password (see below)
+- `RECIPIENT_EMAIL` (required) — where the newsletter lands
 - `NEWSAPI_KEY` (optional)
 
 The workflow at `.github/workflows/newsletter.yml` runs automatically every weekday and can be triggered manually from the **Actions** tab.
 
-### 4. M365 app password for SMTP
+### 4. Gmail App Password for SMTP
 
-`smtp.office365.com` no longer accepts regular Microsoft passwords for most tenants. You will typically need either:
+The default SMTP provider is Gmail (`smtp.gmail.com:587`). Regular Gmail passwords won't work — you need an **App Password**:
 
-- **App password** (if Security defaults are disabled and the account has MFA enabled): Sign in to <https://mysignins.microsoft.com/security-info>, choose **Add method -> App password**, copy the generated value, and use it as `SMTP_PASSWORD`.
-- **Authenticated SMTP enabled per-mailbox** (admin task): In the Microsoft 365 admin center, edit the mailbox -> **Mail -> Email apps -> Manage email apps** -> ensure **Authenticated SMTP** is checked. Authenticated SMTP must also be enabled tenant-wide (PowerShell: `Set-TransportConfig -SmtpClientAuthenticationDisabled $false`).
-- A dedicated mailbox with a license is required; shared mailboxes will not authenticate.
+1. Enable **2-Step Verification** on your Google account if not already on: <https://myaccount.google.com/signinoptions/two-step-verification>
+2. Go to <https://myaccount.google.com/apppasswords>
+3. Enter a name (e.g. "BSB Newsletter") and click **Create**
+4. Copy the 16-character password (formatted `xxxx xxxx xxxx xxxx`) — use it as `SMTP_PASSWORD` (spaces optional)
+
+> **Alternative: Microsoft 365 SMTP.** If you prefer to send from an M365 mailbox, add two extra secrets: `SMTP_HOST=smtp.office365.com` and `SMTP_PORT=587`. You'll also need Authenticated SMTP enabled on the mailbox (disabled by default on most tenants).
 
 ## Running it
 
