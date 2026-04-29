@@ -27,8 +27,8 @@ def send(html: str, subject: str, sender_email: str, sender_name: str, recipient
     if not smtp_user or not smtp_password:
         raise MailerError("SMTP_EMAIL and SMTP_PASSWORD must be set.")
 
-    smtp_host = os.getenv("SMTP_HOST", DEFAULT_SMTP_HOST)
-    smtp_port = int(os.getenv("SMTP_PORT", str(DEFAULT_SMTP_PORT)))
+    smtp_host = os.getenv("SMTP_HOST") or DEFAULT_SMTP_HOST
+    smtp_port = int(os.getenv("SMTP_PORT") or DEFAULT_SMTP_PORT)
 
     # For Gmail the From address must match the authenticated account.
     from_address = smtp_user if "gmail" in smtp_host else (sender_email or smtp_user)
