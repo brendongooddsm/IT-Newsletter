@@ -38,7 +38,9 @@
 
           {# Sections #}
           {% for section in newsletter.sections %}
-            {% set is_ideas = section.get('items') is not none %}
+            {% set ideas = section['items'] if 'items' in section else none %}
+            {% set articles = section['articles'] if 'articles' in section else none %}
+            {% set is_ideas = ideas is not none %}
             <tr>
               <td style="padding:24px 28px 8px 28px;">
                 <h2 style="margin:0 0 4px 0; font-size:17px; font-weight:bold; color:#102a43; border-bottom:2px solid #102a43; padding-bottom:6px; font-family:Arial, Helvetica, sans-serif;">
@@ -49,8 +51,8 @@
 
             {% if is_ideas %}
               {# Automation ideas - card style #}
-              {% if section.items and section.items|length > 0 %}
-                {% for item in section.items %}
+              {% if ideas and ideas|length > 0 %}
+                {% for item in ideas %}
                 <tr>
                   <td style="padding:8px 28px 8px 28px;">
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f0f4f8; border-left:4px solid #2bb0ed; border-radius:4px;">
@@ -82,8 +84,8 @@
               {% endif %}
             {% else %}
               {# Standard article list #}
-              {% if section.articles and section.articles|length > 0 %}
-                {% for article in section.articles %}
+              {% if articles and articles|length > 0 %}
+                {% for article in articles %}
                 <tr>
                   <td style="padding:10px 28px 10px 28px;">
                     <p style="margin:0 0 4px 0; font-size:15px; font-weight:bold; line-height:1.35; font-family:Arial, Helvetica, sans-serif;">
